@@ -8,8 +8,8 @@ class Banner < ActiveRecord::Base
   attr_writer :placements
   after_save :create_placements
 
-  def image_url
-    asset.asset.url
+  def image_url(size=nil)
+    asset.asset.url(size)
   end
 
   def placements

@@ -34,33 +34,34 @@
     %em= "There are no #{params[:view]} banners defined."
 - else
   %table{:style => 'margin-top: 24px'}
-    - @banners.in_groups_of(3).each do |row|
+    %tr
+      %th
+        Name
+      %th
+        Image
+      %th
+        Pages
+      %th
+        Actions
+    - @banners.each do |banner|
       %tr
-        - row.compact.each do |banner|
-          %td.banner
-            %br
-            .modify
-              =link_to banner.name, edit_admin_banner_path(banner), :title => "Edit #{banner.name} banner"
-              .remove
-                - if banner.active?
-                  =link_to 'Deactivate', deactivate_admin_banner_path(banner), :title => "Deactivate #{banner.name} banner (remove from all pages)", :class => 'deactivate-link', :method => :post, :confirm => "Please confirm that you want to deactivate the \"#{banner.name}\" banner, i.e. remove it from all pages?"
-                %br
-                =link_to image('remove', :alt => "Delete #{banner.name} banner", :title => "Delete #{banner.name} banner" ), remove_admin_banner_url(banner), :class => 'remove-link'
-
-            %a{:href => edit_admin_banner_path(banner)}
-              .snapshot{:style => "background: url(#{banner.background_image}) center center no-repeat"}
-                - unless banner.foreground_image.blank?
-                  %img{:src => banner.foreground_image, :alt => "Preview"}/
-
-            .pages
-              On Pages:
-              - unless banner.pages.blank?
-                - banner.pages.each do |page|
-                  &nbsp;
+        %td.banner
+          .modify
+            =link_to banner.name, edit_admin_banner_path(banner), :title => "Edit #{banner.name} banner"
+        %td
+          %a{:href => edit_admin_banner_path(banner)}
+            %img{:src => banner.image_url(:icon), :alt => "Preview"}/        
+        %td
+          - unless banner.pages.blank?
+            %ul
+              - banner.pages.each do |page|
+                %li
                   %a{:href => edit_admin_page_url(page), :title => "Edit #{page.title} page"}= page.breadcrumb
-              - else
-                (none)
-            %p
+        %td
+          %ul
+            - if banner.active?
+              %li=link_to 'Deactivate', deactivate_admin_banner_path(banner), :title => "Deactivate #{banner.name} banner (remove from all pages)", :class => 'deactivate-link', :method => :post, :confirm => "Please confirm that you want to deactivate the \"#{banner.name}\" banner, i.e. remove it from all pages?"
+            %li=link_to image('remove', :alt => "Delete #{banner.name} banner", :title => "Delete #{banner.name} banner" ), remove_admin_banner_url(banner)
 
 = render_region :bottom
             

@@ -43,13 +43,9 @@
       %br/
       ~ f.text_area :description, :size => '72x5'
     %p
-      = f.label :background_image
+      = f.label :asset_id
       %br/
-      = f.text_field :background_image, :class => 'textbox', :size => 72
-    %p
-      = f.label :foreground_image
-      %br/
-      = f.text_field :foreground_image, :class => 'textbox', :size => 72
+      = f.collection_select :asset_id, @available_assets, :id, :title
     %p
       = f.label :link_url, 'Link URL'
       %br/
