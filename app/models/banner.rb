@@ -1,11 +1,16 @@
 class Banner < ActiveRecord::Base
   has_many :banner_placements, :dependent => :destroy
   has_many :pages, :through => :banner_placements
+  belongs_to :asset
 
-  validates_presence_of :name, :background_image
+  validates_presence_of :name, :asset
   
   attr_writer :placements
   after_save :create_placements
+
+  def image_url
+    asset.asset.url
+  end
 
   def placements
     @placements || banner_placements
