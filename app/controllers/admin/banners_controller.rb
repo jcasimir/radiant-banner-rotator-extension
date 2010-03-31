@@ -10,6 +10,11 @@ class Admin::BannersController < Admin::ResourceController
     :denied_message => 'You must have developer privileges to perform this action.'
 
   before_filter :check_cookie, :only => [:index]
+  before_filter :load_image_assets, :only => [:new, :edit]
+
+  def load_image_assets
+    @available_assets = Asset.find(:all, :order => "created_at DESC").select{|a| a.image?}
+  end
 
   def check_cookie
     unless params[:sort]
