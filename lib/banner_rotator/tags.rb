@@ -14,7 +14,7 @@ module BannerRotator::Tags
   tag 'banner' do |tag|
     page = tag.locals.page
     tag.locals.banner = page.select_banner
-    tag.expand if tag.locals.banner && page.show_banner?
+    tag.expand if tag.locals.banner # && page.show_banner?  (Disabled until pages default to show_banner = true)
   end
 
   %w{name background_image foreground_image link_url link_target image_style description}.each do |att|
