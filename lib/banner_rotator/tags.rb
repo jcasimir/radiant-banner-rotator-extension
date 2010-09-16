@@ -16,8 +16,8 @@ module BannerRotator::Tags
     tag.locals.banner = page.select_banner
     tag.expand if tag.locals.banner # && page.show_banner?  (Disabled until pages default to show_banner = true)
   end
-
-  %w{name image_url link_url link_target image_style description}.each do |att|
+  
+  %w{name image_url link_url link_target image_style description image_tag}.each do |att|
     desc %{
       Outputs the #{att} attribute of the current banner.
 

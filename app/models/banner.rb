@@ -7,6 +7,10 @@ class Banner < ActiveRecord::Base
   
   attr_writer :placements
   after_save :create_placements
+  
+  def image_tag(size=nil)
+    "<img src='#{asset.asset.url(size)}' />"
+  end
 
   def image_url(size=nil)
     asset.asset.url(size)
